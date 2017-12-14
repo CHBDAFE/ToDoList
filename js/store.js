@@ -80,14 +80,12 @@
 
 		callback = callback || function () {};
 
-		// Generate an ID
+        // Generate an ID
 	    var newId = ""; 
 	    var charset = "0123456789";
-
-        for (var i = 0; i < 6; i++) {
-     		newId += charset.charAt(Math.floor(Math.random() * charset.length));
-		}
-
+        var parseId;
+        var Id_ok=false;
+        
 		// If an ID was actually given, find the item and update each property
 		if (id) {
 			for (var i = 0; i < todos.length; i++) {
@@ -102,10 +100,25 @@
 			localStorage[this._dbName] = JSON.stringify(data);
 			callback.call(this, todos);
 		} else {
-
+            Id_ok=false;
+            do {
+	            newId = "";
+                //genere un Id aleatoire
+                for (var i = 0; i < 6; i++) {
+                    newId += charset.charAt(Math.floor(Math.random() * charset.length));
+                }
+                parseId = parseInt(newId);
+                // verifie si l'Id est utilise
+                for (var i = 0; i < todos.length; i++) {
+                    if (todos[i].id === parseId)
+                        break;  //l'Id est deja utilise on en genere un autre
+                    Id_ok=true; //l'Id n'est pas utilise on passe a la suite
+                }
+            } while(!Id_ok); // on boucle tantqu'on a pas un Id OK
+            
     		// Assign an ID
-			updateData.id = parseInt(newId);
-    
+			//updateData.id = parseInt(newId);
+			updateData.id = parseId;
 
 			todos.push(updateData);
 			localStorage[this._dbName] = JSON.stringify(data);
@@ -124,6 +137,7 @@
 		var todos = data.todos;
 		var todoId;
 		
+        // supprimer une des boucle for ci-dessous !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		for (var i = 0; i < todos.length; i++) {
 			if (todos[i].id == id) {
 				todoId = todos[i].id;
