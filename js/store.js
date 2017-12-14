@@ -102,10 +102,14 @@
             do {
                 newId = Math.round(Math.random() * 1000000); //genere un Id aléatoire entre 0 et 999999
                 // verifie si l'Id est utilise
-                for (var i = 0; i < todos.length; i++) {
-                    if (todos[i].id === newId)
-                        break;  //l'Id est deja utilise on en genere un autre
-                    Id_ok=true; //l'Id n'est pas utilise on passe a la suite
+                if (todos.length>0) {
+                    for (var i = 0; i < todos.length; i++) {
+                        if (todos[i].id === newId)
+                            break;  //l'Id est deja utilise on en genere un autre
+                        Id_ok=true; //l'Id n'est pas utilise on passe a la suite
+                    }
+                } else {
+                    Id_ok=true; //cas particulier si il n'y a pas de todo
                 }
             } while(!Id_ok); // on boucle tantqu'on a pas un Id OK
             
