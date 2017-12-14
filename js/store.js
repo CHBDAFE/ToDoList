@@ -81,9 +81,7 @@
 		callback = callback || function () {};
 
         // Generate an ID
-	    var newId = ""; 
-	    var charset = "0123456789";
-        var parseId;
+	    var newId = 0; 
         var Id_ok=false;
         
 		// If an ID was actually given, find the item and update each property
@@ -102,23 +100,17 @@
 		} else {
             Id_ok=false;
             do {
-	            newId = "";
-                //genere un Id aleatoire
-                for (var i = 0; i < 6; i++) {
-                    newId += charset.charAt(Math.floor(Math.random() * charset.length));
-                }
-                parseId = parseInt(newId);
+                newId = Math.round(Math.random() * 1000000); //genere un Id aléatoire entre 0 et 999999
                 // verifie si l'Id est utilise
                 for (var i = 0; i < todos.length; i++) {
-                    if (todos[i].id === parseId)
+                    if (todos[i].id === newId)
                         break;  //l'Id est deja utilise on en genere un autre
                     Id_ok=true; //l'Id n'est pas utilise on passe a la suite
                 }
             } while(!Id_ok); // on boucle tantqu'on a pas un Id OK
             
     		// Assign an ID
-			//updateData.id = parseInt(newId);
-			updateData.id = parseId;
+			updateData.id = newId;
 
 			todos.push(updateData);
 			localStorage[this._dbName] = JSON.stringify(data);
