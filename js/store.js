@@ -100,14 +100,17 @@
 		} else {
             Id_ok=false;
             do {
-                newId = Math.round(Math.random() * 1000000); //genere un Id aléatoire entre 0 et 999999
+                newId = random_Id(); //genere un Id aléatoire entre 1 et 999999
+                console.log('newId = ' + newId);
                 // verifie si l'Id est utilise
                 if (todos.length>0) {
-                    for (var i = 0; i < todos.length; i++) {
+                    var i;
+                    for (i = 0; i < todos.length; i++) {
                         if (todos[i].id === newId)
                             break;  //l'Id est deja utilise on en genere un autre
-                        Id_ok=true; //l'Id n'est pas utilise on passe a la suite
                     }
+                    if (i >= todos.length)
+                        Id_ok=true; //l'Id n'est pas utilise on passe a la suite
                 } else {
                     Id_ok=true; //cas particulier si il n'y a pas de todo
                 }
