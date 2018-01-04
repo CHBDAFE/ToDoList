@@ -101,7 +101,6 @@
             Id_ok=false;
             do {
                 newId = random_Id(); //genere un Id aléatoire entre 1 et 999999
-                console.log('newId = ' + newId);
                 // verifie si l'Id est utilise
                 if (todos.length>0) {
                     var i;
@@ -134,19 +133,11 @@
 	Store.prototype.remove = function (id, callback) {
 		var data = JSON.parse(localStorage[this._dbName]);
 		var todos = data.todos;
-		//var todoId;
-		
-        // supprimer une des boucle for ci-dessous !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//for (var i = 0; i < todos.length; i++) {
-		//	if (todos[i].id == id) {
-		//		todoId = todos[i].id;
-		//	}
-		//}
-
+        
 		for (var i = 0; i < todos.length; i++) {
-			//if (todos[i].id == todoId) {
-			if (todos[i].id == id) {
+			if (todos[i].id === id) {
 				todos.splice(i, 1);
+                break; // inutile de poursuivre la recherche on sort de la boucle for
 			}
 		}
 
