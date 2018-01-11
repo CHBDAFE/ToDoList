@@ -80,10 +80,6 @@
 
 		callback = callback || function () {};
 
-        // Generate an ID
-	    var newId = 0; 
-        var Id_ok=false;
-        
 		// If an ID was actually given, find the item and update each property
 		if (id) {
 			for (var i = 0; i < todos.length; i++) {
@@ -98,7 +94,9 @@
 			localStorage[this._dbName] = JSON.stringify(data);
 			callback.call(this, todos);
 		} else {
-            Id_ok=false;
+            var newId = 0; 
+            var Id_ok=false;
+            
             do {
                 newId = random_Id(); //genere un Id aléatoire entre 1 et 999999
                 // verifie si l'Id est utilise
